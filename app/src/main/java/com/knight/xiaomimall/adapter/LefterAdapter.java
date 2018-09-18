@@ -1,7 +1,6 @@
 package com.knight.xiaomimall.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,14 +22,12 @@ import java.util.List;
 public class LefterAdapter extends RecyclerView.Adapter<LefterAdapter.ViewHolder> {
     private Context context;
     private List<String> bigSortList;
-    private RecyclerView recyclerView;
     private LeftListener listener;
     private int selectedPosition;
 
-    public LefterAdapter(Context context, List<String> bigSortList, RecyclerView recyclerView) {
+    public LefterAdapter(Context context, List<String> bigSortList) {
         this.context = context;
         this.bigSortList = bigSortList;
-        this.recyclerView = recyclerView;
     }
 
     /**
@@ -40,7 +37,6 @@ public class LefterAdapter extends RecyclerView.Adapter<LefterAdapter.ViewHolder
      */
     public void getSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
-        moveToMiddle(selectedPosition);
         notifyDataSetChanged();
     }
 
@@ -74,26 +70,6 @@ public class LefterAdapter extends RecyclerView.Adapter<LefterAdapter.ViewHolder
         }
     }
 
-    /**
-     * 将选中项移动到中间位置的方法
-     *
-     * @param position
-     */
-    public void moveToMiddle(int position) {
-        int firstItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-        int lastItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-        int middle = (firstItem + lastItem) / 2;
-        int index = (position - middle) >= 0 ? position - middle : -(position - middle);
-        if (index >= recyclerView.getChildCount()) {
-            recyclerView.scrollToPosition(position);
-        } else {
-            if (position < middle) {
-                recyclerView.scrollBy(0, -recyclerView.getChildAt(index).getTop());
-            } else {
-                recyclerView.scrollBy(0, recyclerView.getChildAt(index).getTop());
-            }
-        }
-    }
 
     @Override
     public int getItemCount() {

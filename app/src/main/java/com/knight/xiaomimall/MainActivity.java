@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.knight.xiaomimall.adapter.LefterAdapter;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         leftLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         leftRecyclerView.setLayoutManager(leftLayoutManager);
-        leftAdapter = new LefterAdapter(this, bigSortList, leftRecyclerView);
+        leftAdapter = new LefterAdapter(this, bigSortList);
         //左侧列表的点击事件
         leftAdapter.setItemClickListener(new LefterAdapter.LeftListener() {
             @Override
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         rightLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rightRecyclerView.setLayoutManager(rightLayoutManager);
-        rightAdapter = new RighterAdapter(getApplicationContext(), bigSortList, smallSortList, rightRecyclerView);
+        rightAdapter = new RighterAdapter(getApplicationContext(), bigSortList, smallSortList,rightRecyclerView);
         //右侧列表的点击事件
         rightAdapter.setItemClickListener(new RighterAdapter.RightListener() {
             @Override
@@ -85,6 +86,48 @@ public class MainActivity extends AppCompatActivity {
         rightRecyclerView.setAdapter(rightAdapter);
 
     }
+
+
+//    /**
+//     * 监听RecyclerView滚动，实现粘性头部
+//     */
+//    private class RvScrollListener extends RecyclerView.OnScrollListener
+//    {
+//        @Override
+//        public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+//        {
+//            super.onScrolled(recyclerView, dx, dy);
+//
+//            View stickyInfoView = recyclerView.getChildAt(0);//获取头部View
+//            if (stickyInfoView != null && stickyInfoView.getContentDescription() != null)
+//            {
+//                headerView.setVisibility(View.VISIBLE);
+//                headerViewText.setText(String.valueOf(stickyInfoView.getContentDescription()));
+//            }
+//            View transInfoView = recyclerView.findChildViewUnder(headerView.getMeasuredWidth() / 2
+//                    , headerView.getMeasuredHeight() + 1);//位于headerView下方的itemView（该坐标是否在itemView内）
+//            if (transInfoView != null && transInfoView.getTag() != null)
+//            {
+//                int tag = (int) transInfoView.getTag();
+//                int deltaY = transInfoView.getTop() - headerView.getMeasuredHeight();
+//                if (tag == StickyHeaderAdapter.HAS_STICKY_VIEW)//当Item包含粘性头部一类时
+//                {
+//                    if (transInfoView.getTop() > 0)//当Item还未移动出顶部时
+//                    {
+//                        headerView.setTranslationY(deltaY);
+//                    } else//当Item移出顶部，粘性头部复原
+//                    {
+//                        headerView.setTranslationY(0);
+//                    }
+//                } else//当Item不包含粘性头部时
+//                {
+//                    headerView.setTranslationY(0);
+//                }
+//            }
+//        }
+//    }
+
+
 
     /**
      * 初始化数据

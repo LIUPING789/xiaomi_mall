@@ -45,7 +45,8 @@ public class RighterAdapter extends RecyclerView.Adapter<RighterAdapter.ViewHold
      * @param selectedPosition
      */
     public void getSelectedPosition(int selectedPosition) {
-        ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(selectedPosition, 0);
+//        ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(selectedPosition, 0);
+        recyclerView.smoothScrollToPosition(selectedPosition);
         notifyDataSetChanged();
     }
 
